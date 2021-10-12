@@ -1,3 +1,38 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [1. BaseForward interfaces](#1-baseforward-interfaces)
+  - [1.0 createOrder(...)](#10-createorder)
+  - [1.1 cancelOrder(uint _orderId)](#11-cancelorderuint-_orderid)
+  - [1.2 takeOrderFor(address _taker, uint _orderId)](#12-takeorderforaddress-_taker-uint-_orderid)
+  - [1.3 deliverFor(address _deliverer, uint _orderId)](#13-deliverforaddress-_deliverer-uint-_orderid)
+  - [1.4 settle(uint _orderId)](#14-settleuint-_orderid)
+  - [1.5 Read methods](#15-read-methods)
+    - [1.5.0 factory()](#150-factory)
+    - [1.5.1 want()](#151-want)
+    - [1.5.2 margin()](#152-margin)
+    - [1.5.3 fVault()](#153-fvault)
+    - [1.5.4 cfee()](#154-cfee)
+    - [1.5.5 ordersLength()](#155-orderslength)
+    - [1.5.6 paused()](#156-paused)
+    - [1.5.7 balance()](#157-balance)
+    - [1.5.8 getPricePerFullShare()](#158-getpriceperfullshare)
+    - [1.5.9 checkOrderState(uint _orderId)](#159-checkorderstateuint-_orderid)
+    - [1.5.9 getOrder(uint _orderId)](#159-getorderuint-_orderid)
+- [2. Forward721 interfaces](#2-forward721-interfaces)
+  - [2.1 createOrderFor(...)](#21-createorderfor)
+  - [2.2 underlyingAssets(uint _orderId)](#22-underlyingassetsuint-_orderid)
+- [3. Forward20 interfaces](#3-forward20-interfaces)
+    - [3.1 createOrderFor(...)](#31-createorderfor)
+  - [3.2 underlyingAssets(uint _orderId)](#32-underlyingassetsuint-_orderid)
+- [4. Forward1155 interfaces](#4-forward1155-interfaces)
+    - [4.1 createOrderFor(...)](#41-createorderfor)
+  - [4.2 underlyingAssets(uint _orderId)](#42-underlyingassetsuint-_orderid)
+- [5. ForwardEtherRouter](#5-forwardetherrouter)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 1. BaseForward interfaces
 
 ### 1.0 createOrder(...)
@@ -248,7 +283,7 @@ _isSeller: if _creator is this order's seller
 return: (uint[] ids, uint[] amounts), indicating seller should send amounts of ids tokens if he wants to obtain _deliveryPrice amount of margin() token
 ```
 
-### 5 ForwardEtherRouter
+## 5. ForwardEtherRouter
 
 Should only be considered as useful when the margin is weth and user wants to use ether to create order, takeOrder, deliver order for all Forward20, Forward721, Forward1155 forward contracts.
 
