@@ -10,4 +10,9 @@ The backend api interfaces are defined [here](./backend-api.md).
 The [whitepaper](https://hoglet.gitbook.io/hoglet/) is curretly under progress, please stay tuned.
 
 #### 3. forward smart contracts
-The smart contracts repo is [here](https://github.com/HogletCore/forward) and their interfaces explanation and details provided [here](./forward-sc-interfaces.md).
+The smart contracts repo is [here](https://github.com/HogletCore/forward)
+
+Interfaces explanation and details provided [here](./
+forward-sc-interfaces.md).
+
+Important abi files are [here](./resource/forward-abi).
