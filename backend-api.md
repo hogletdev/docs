@@ -12,6 +12,7 @@
     - [7. user_verify_auth](#7-user_verify_auth)
     - [8. set_user_forward_orders](#8-set_user_forward_orders)
     - [9. get_user_forward_orders](#9-get_user_forward_orders)
+    - [10. del_user_forward_orders](#10-del_user_forward_orders)
 - [Rest Request](#rest-request)
     - [1. ping](#1-ping-1)
     - [2. get_forward_orders](#2-get_forward_orders-1)
@@ -766,7 +767,31 @@ Response
 Response will contain both on-chain forward orders and off-chains
 
 
+#### 10. del_user_forward_orders
 
+User request to fetch his off-chain forward orders
+
+Request
+
+```markdown
+{
+	"method": "del_user_forward_orders",
+    "user": "0xf2Ac84D916E28aEB434b67f38cd0e481172dD029",
+	"orders": [11, 7, 8, 9]
+}
+```
+
+
+Response
+
+```markdown
+{
+    "code": 200,
+    "desc": "OK",
+    "id": 0,
+    "result": ""
+}
+```
 
 ## Rest Request
 
