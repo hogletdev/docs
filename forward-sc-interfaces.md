@@ -30,6 +30,7 @@
     - [4.1 createOrderFor(...)](#41-createorderfor)
   - [4.2 underlyingAssets(uint _orderId)](#42-underlyingassetsuint-_orderid)
 - [5. ForwardEtherRouter](#5-forwardetherrouter)
+- [6. BaseFactoryUpgradeable](#6-basefactoryupgradeable)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -288,3 +289,24 @@ return: (uint[] ids, uint[] amounts), indicating seller should send amounts of i
 Should only be considered as useful when the margin is weth and user wants to use ether to create order, takeOrder, deliver order for all Forward20, Forward721, Forward1155 forward contracts.
 
 TODO:
+
+## 6. BaseFactoryUpgradeable
+
+If there is no pool with specific underlying asset and margin token selected by user, then the user needs to create a new pool.
+
+Interfact detail,
+```
+function deployPool(
+        address _asset,
+        uint _assetType,
+        address _margin
+    ) external virtual
+```
+
+parameter explanation:
+
+```
+_asset: the underlying asset designated by user
+_assettype: if the _asset is erc20, value should be 20. If the _asset is erc721, value should be 721. If the _asset is erc1155, value should be 1155.
+_margin: margin token designated by user, should be erc20, ether(or address(0) unsupported), weth is supported.
+```
