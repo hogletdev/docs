@@ -308,5 +308,5 @@ parameter explanation:
 ```
 _asset: the underlying asset designated by user
 _assettype: if the _asset is erc20, value should be 20. If the _asset is erc721, value should be 721. If the _asset is erc1155, value should be 1155.
-_margin: margin token designated by user, should be erc20, ether(or address(0) unsupported), weth is supported.
+_margin: margin token designated by user, should be erc20(ether or address(0) unsupported), weth is supported.
 ```
