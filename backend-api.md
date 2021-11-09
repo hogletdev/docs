@@ -62,7 +62,8 @@ Request Body
     "chain_id": 4, // rinkeby
     "filter":{
         "order_state": ["Expired", "Settled"],
-        "order_type": [20, 721]
+        "order_type": [20, 721],
+        "ids": [6, 5, 4]
     },
     "page_number": 1, // or page index
     "page_size": 20,
@@ -77,6 +78,7 @@ method| "get_forward_orders"
 chain_id| eth mainnet = 1, rinkeby test net = 4
 filter.order_state | string array, only support "Active", "Filled", "Delivery", "Expired" and "Settled". order_state filter can be removed from filer
 filter.order_type | int array, only support 20, 721, 1155. order_type filter can be removed from filer
+filter.ids | int array, should be the returned order.id field, which is the id stored in db
 page_number| which page of orders we would like to fetch
 page_size| how many orders are contained in one page
 id| can be any int to avoid concurrent issue
@@ -590,7 +592,8 @@ Request
     "chain_id": 4,
     "filter":{
         "order_state": ["Settled"],
-        "order_type": [20, 721]
+        "order_type": [20, 721],
+        "ids": [11, 10, 6, 5]
     },
     "page_number":1,
     "page_size": 10,
