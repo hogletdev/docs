@@ -159,6 +159,19 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "childImplementation",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -300,6 +313,19 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "ifEnableSupportMargin",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -313,19 +339,6 @@
           "internalType": "bool",
           "name": "",
           "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "implementation",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
         }
       ],
       "stateMutability": "view",
@@ -487,6 +500,13 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "toggleSupportMargin",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
@@ -523,11 +543,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "newImplementation",
+          "name": "newChildImplementation",
           "type": "address"
         }
       ],
-      "name": "upgradeTo",
+      "name": "upgradeChildTo",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
