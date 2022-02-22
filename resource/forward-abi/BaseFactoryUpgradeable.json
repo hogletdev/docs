@@ -208,7 +208,13 @@
         }
       ],
       "name": "deployPool",
-      "outputs": [],
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "stateMutability": "nonpayable",
       "type": "function"
     },
@@ -271,24 +277,6 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "getOperationFee",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
           "internalType": "address",
@@ -307,6 +295,24 @@
           "internalType": "address",
           "name": "",
           "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getServiceFee",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -439,24 +445,6 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "_poolId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "_forwardVault",
-          "type": "address"
-        }
-      ],
-      "name": "setForwardVault",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
           "internalType": "address",
           "name": "_deployer",
           "type": "address"
@@ -497,6 +485,24 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_pool",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_launchpad",
+          "type": "address"
+        }
+      ],
+      "name": "toggleLaunchpad",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {

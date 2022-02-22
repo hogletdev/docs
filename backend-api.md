@@ -551,19 +551,26 @@ Request
             "pool_addr": "",
             "asset": "0xBc4595B1487E4bA99cd4A61258b2a3bE1469D4B7",
             "order_type": 721,
+            "valid_till": 1633260087,
             "deliver_start": 1633260287,
+            "deliver_period": 100,
+            "expire_start": 1633260387,
             "deliver_token": "0xC99c1D6d78C7bb75B41517d6b82F35248b06f684",
             "deliver_price": "234",
-            "deliver_period": 100,
             "buyer_margin": "345",
             "seller_margin": "456",
             "buyer_addr": "0x8A0532F75D6BAcfcA977ce74025cfbf876278697",
+            "seller_addr": "0x00",
             "seller_addr": "",
             "asset_info": {
                 "amount": "1234",
                 "token_ids": ["1", "2"],
                 "amounts": ["100", "200"]
-            }
+            },
+            "digest": "bytes32()",
+            "direction": "buy",
+            "maker_sig": "",
+            "salt": "random_bytes32"
         }
     ]
 }
