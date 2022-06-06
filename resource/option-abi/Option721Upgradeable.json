@@ -1,0 +1,861 @@
+{
+    "_format": "hh-sol-artifact-1",
+    "contractName": "Option721Upgradeable",
+    "sourceName": "contracts/options/imp/Option721Upgradeable.sol",
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "optionHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "CancelOffchainOption",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "seller",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "buyer",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint128",
+                    "name": "premium",
+                    "type": "uint128"
+                }
+            ],
+            "name": "CreateAndTake",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Exercise",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "SellerDefault",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "maker",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "taker",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "optionHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint128",
+                    "name": "premium",
+                    "type": "uint128"
+                }
+            ],
+            "name": "TakeOffChainOption",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "implementation",
+                    "type": "address"
+                }
+            ],
+            "name": "Upgraded",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DOMAIN_SEPARATOR",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "OFFCHAINOPTION_TYPEHASH",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_rightObligationImp",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_underlying",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_quote",
+                    "type": "address"
+                }
+            ],
+            "name": "__BaseOption__init",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_rightObligationImp",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_underlying",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_poolType",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_quote",
+                    "type": "address"
+                }
+            ],
+            "name": "__Option721Upgradeable__init",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "balance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_maker",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256[4]",
+                    "name": "_uints",
+                    "type": "uint256[4]"
+                },
+                {
+                    "internalType": "bool[2]",
+                    "name": "_bools",
+                    "type": "bool[2]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_tokenIds",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_makerSig",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "cancelOffchainOption",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "oh",
+                    "type": "bytes32"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "cfee",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "checkOptionState",
+            "outputs": [
+                {
+                    "internalType": "enum IBaseOption.State",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "childImplementation",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                }
+            ],
+            "name": "collectFee",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[2]",
+                    "name": "_addrs",
+                    "type": "address[2]"
+                },
+                {
+                    "internalType": "uint256[4]",
+                    "name": "_uints",
+                    "type": "uint256[4]"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_isCall",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_tokenIds",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "createAndTakeFor",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "eth",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "exercise",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "factory",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getOption",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "address",
+                            "name": "seller",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "buyer",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint128",
+                            "name": "strike",
+                            "type": "uint128"
+                        },
+                        {
+                            "internalType": "uint40",
+                            "name": "expiration",
+                            "type": "uint40"
+                        },
+                        {
+                            "internalType": "enum IBaseOption.OptionType",
+                            "name": "otype",
+                            "type": "uint8"
+                        },
+                        {
+                            "internalType": "enum IBaseOption.State",
+                            "name": "state",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct IBaseOption.OptionDeail",
+                    "name": "option",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "known",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "launchpads",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "name",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "obligation",
+            "outputs": [
+                {
+                    "internalType": "contract IRightObligation",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "",
+                    "type": "bytes"
+                }
+            ],
+            "name": "onERC721Received",
+            "outputs": [
+                {
+                    "internalType": "bytes4",
+                    "name": "",
+                    "type": "bytes4"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "options",
+            "outputs": [
+                {
+                    "internalType": "uint128",
+                    "name": "strike",
+                    "type": "uint128"
+                },
+                {
+                    "internalType": "uint40",
+                    "name": "expiration",
+                    "type": "uint40"
+                },
+                {
+                    "internalType": "enum IBaseOption.OptionType",
+                    "name": "otype",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "enum IBaseOption.State",
+                    "name": "state",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "optionsLength",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "quote",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "right",
+            "outputs": [
+                {
+                    "internalType": "contract IRightObligation",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "sellerDefault",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address[2]",
+                    "name": "_addrs",
+                    "type": "address[2]"
+                },
+                {
+                    "internalType": "uint256[4]",
+                    "name": "_uints",
+                    "type": "uint256[4]"
+                },
+                {
+                    "internalType": "bool[2]",
+                    "name": "_bools",
+                    "type": "bool[2]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_tokenIds",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "_makerSig",
+                    "type": "bytes"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_salt",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "takeOffChainOptionFor",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "optionId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_launchpad",
+                    "type": "address"
+                }
+            ],
+            "name": "toggleLaunchpad",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "underlying",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_optionId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "underlyingAssets",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newChildImplementation",
+                    "type": "address"
+                }
+            ],
+            "name": "upgradeChildTo",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "version",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_to",
+                    "type": "address"
+                }
+            ],
+            "name": "withdrawOther",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "",
+    "deployedBytecode": "",
+    "linkReferences": {},
+    "deployedLinkReferences": {}
+}
