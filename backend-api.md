@@ -1,24 +1,26 @@
+<!-- @format -->
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)* -->
 
-- [Rpc Request](#rpc-request)
-    - [1. ping](#1-ping)
-    - [2. get_forward_orders](#2-get_forward_orders)
-    - [3. get_default_tokens_by_types](#3-get_default_tokens_by_types)
-    - [4. get_tokens_info_by_addr](#4-get_tokens_info_by_addr)
-    - [5. get_supported_margins_by_assets](#5-get_supported_margins_by_assets)
-    - [6. user_request_auth](#6-user_request_auth)
-    - [7. user_verify_auth](#7-user_verify_auth)
-    - [8. set_user_forward_orders](#8-set_user_forward_orders)
-    - [9. get_user_forward_orders](#9-get_user_forward_orders)
-    - [10. del_user_forward_orders](#10-del_user_forward_orders)
-    - [11. upload_user_profile](#11-upload_user_profile)
-    - [12. get_user_profile](#12-get_user_profile)
-    - [13. get_tokens_detail_by_addr_id](#13-get_tokens_detail_by_addr_id)
-- [Rest Request](#rest-request)
-    - [1. ping](#1-ping-1)
-    - [2. get_forward_orders](#2-get_forward_orders-1)
+-   [Rpc Request](#rpc-request)
+    -   [1. ping](#1-ping)
+    -   [2. get_forward_orders](#2-get_forward_orders)
+    -   [3. get_default_tokens_by_types](#3-get_default_tokens_by_types)
+    -   [4. get_tokens_info_by_addr](#4-get_tokens_info_by_addr)
+    -   [5. get_supported_margins_by_assets](#5-get_supported_margins_by_assets)
+    -   [6. user_request_auth](#6-user_request_auth)
+    -   [7. user_verify_auth](#7-user_verify_auth)
+    -   [8. set_user_forward_orders](#8-set_user_forward_orders)
+    -   [9. get_user_forward_orders](#9-get_user_forward_orders)
+    -   [10. del_user_forward_orders](#10-del_user_forward_orders)
+    -   [11. upload_user_profile](#11-upload_user_profile)
+    -   [12. get_user_profile](#12-get_user_profile)
+    -   [13. get_tokens_detail_by_addr_id](#13-get_tokens_detail_by_addr_id)
+-   [Rest Request](#rest-request)
+    -   [1. ping](#1-ping-1)
+    -   [2. get_forward_orders](#2-get_forward_orders-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -67,9 +69,15 @@ Request Body
     "method": "get_forward_orders", // method name
     "chain_id": 4, // rinkeby
     "filter": {
-        "order_state": ["Expired", "Settled"],
-        "order_type": [20, 721],
-        "ids": [6, 5, 4]
+        "ids": [6, 5, 4],
+        "order_states": ["Expired", "Settled"],
+        "underlyings": ["0x...", "0x..."],
+        "underlying_types": [721],
+        "types": ["sell", "buy"],
+        "quotes": ["0x...", "0x..."],
+        "price_order": 0,
+        "premium_order": 0,
+        "token_ids": ["1", "2"]
     },
     "page_number": 1, // or page index
     "page_size": 20,
@@ -79,152 +87,56 @@ Request Body
 
 About Request parameters:
 
-| Param              | notion                                                                                                                           |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| method             | "get_forward_orders"                                                                                                             |
-| chain_id           | eth mainnet = 1, rinkeby test net = 4                                                                                            |
-| filter.order_state | string array, only support "Active", "Filled", "Delivery", "Expired" and "Settled". order_state filter can be removed from filer |
-| filter.order_type  | int array, only support 20, 721, 1155. order_type filter can be removed from filer                                               |
-| filter.ids         | int array, should be the returned order.id field, which is the id stored in db                                                   |
-| page_number        | which page of orders we would like to fetch                                                                                      |
-| page_size          | how many orders are contained in one page                                                                                        |
-| id                 | can be any int to avoid concurrent issue                                                                                         |
+| Param                   | notion                                                                                                                                                                                                                                                                                                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| method                  | "get_forward_orders"                                                                                                                                                                                                                                                                                                                                         |
+| chain_id                | eth mainnet = 1, rinkeby test net = 4                                                                                                                                                                                                                                                                                                                        |
+| filter.ids              | int array, should be the returned order.id field, which is the id stored in db                                                                                                                                                                                                                                                                               |
+| filter.order_states     | string array. Forward order only support {"Inactive", "Active", "Filled", "Delivery", "Expired", "Settled", "Canceled", "Dead", "Signed", "SignedInvalid", "SignedCanceled"}. Option order only support {"Inactive", "Active", "Expired", "Exercised", "Default", "Signed", "SignedCanceled", "SignedInvalid"}. order_state filter can be removed from filer |
+| filter.underlyings      | string array, should be the searched erc721/20/1155 addresses                                                                                                                                                                                                                                                                                                |
+| filter.underlying_types | int array, only support 20, 721, 1155. underlying_type filed can be removed from filer                                                                                                                                                                                                                                                                       |
+| filter.types            | {"buy", "sell"} for forward order, {"call", "put"} for option order                                                                                                                                                                                                                                                                                          |
+| filter.quotes           | string array, WETH or DAI addresses should be included if necessary.                                                                                                                                                                                                                                                                                         |
+| filter.price_order      | int, -1 means low2high, 0 means default, 1 meain high2low for the order of delivery price in forward order or strike price in option order.                                                                                                                                                                                                                  |
+| filter.premium_order    | int, -1 means low2high, 0 means default, 1 meain high2low for option order, and useless for forward order                                                                                                                                                                                                                                                    |
+| filter.token_ids        | string array, indicates we want to fetch the orders related with these token_ids                                                                                                                                                                                                                                                                             |
+| page_number             | which page of orders we would like to fetch                                                                                                                                                                                                                                                                                                                  |
+| page_size               | how many orders are contained in one page                                                                                                                                                                                                                                                                                                                    |
+| id                      | can be any int to avoid concurrent issue                                                                                                                                                                                                                                                                                                                     |
 
-About filter.order_state meaning:
+About filter.order_state meaning for forward order:
 
-| order_state | notion                                                                   |
-| ----------- | ------------------------------------------------------------------------ |
-| Active      | order made on-chain yet not taked                                        |
-| Filled      | order taked on-chain yet not should be exercise/delivered                |
-| Delivery    | order should be delivered by both seller and buyer                       |
-| Expired     | buyer not deliver or seller not deliver after the expire start timestamp |
-| Settled     | no mather who delivered and not delivered, the order has been liquidated |
+| order_state    | notion                                                                                                   |
+| -------------- | -------------------------------------------------------------------------------------------------------- |
+| Signed         | order has been signed offchain                                                                           |
+| SignedInvalid  | order has been signed offchain, yet the order has met the deadline and becomes invalid                   |
+| SignedCanceled | order has been signed offchain, yet has been submitted to blockchain to cancel this order with signature |
+| Inactive       | order has been saved offchain without sig                                                                |
+| Active         | order made on-chain yet not taked                                                                        |
+| Filled         | order taked on-chain yet not should be exercise/delivered                                                |
+| Delivery       | order should be delivered by both seller and buyer                                                       |
+| Expired        | buyer not deliver or seller not deliver after the expire start timestamp                                 |
+| Settled        | no mather who delivered and not delivered, the order has been liquidated                                 |
+| Dead           | order has been created onchain, yet not matched till deadline, hence no one can take this order          |
+| Canceled       | order has been created onchain, yet has been canceled before deadline, hence no one can take this order  |
+
+About filter.order_state meaning for option order:
+
+| order_state    | notion                                                                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Signed         | order has been signed offchain                                                                                                                                     |
+| SignedInvalid  | order has been signed offchain, yet the order has met the deadline and becomes invalid                                                                             |
+| SignedCanceled | order has been signed offchain, yet has been submitted to blockchain to cancel this order with signature                                                           |
+| Inactive       | order has been saved offchain without sig                                                                                                                          |
+| Active         | order can be exercised anytime                                                                                                                                     |
+| Exercised      | order has been exercised by the option holder/buyer                                                                                                                |
+| Expired        | order has not been exercised by option holder/buyer, yet the time has passed the strike_time, the underlying asset needs to be claimed by the option writer/seller |
+| Default        | the order has passed strike_time, yet option buyer/holder chose not to exercise, so the writer/seller claimed his asset locked in the contract.                    |
 
 Response:
 
 ```json
-{
-    "code": 200,
-    "desc": "OK",
-    "id": 2,
-    "result": {
-        "total_forward_orders": 3,
-        "forward_orders": [
-            // array
-            {
-                "id": 6,
-                "pool_addr": "0xC99c1D6d78C7bb75B41517d6b82F35248b06f684",
-                "order_type": 721,
-                "order_id": 5,
-                "created_time": 1633261533,
-                "order_valid_period": 1633261713,
-                "valid_till": 1633261713,
-                "deliver_price": "100000000000",
-                "deliver_token": "0xC99c1D6d78C7bb75B41517d6b82F35248b06f684",
-                "deliver_start": 1633261848,
-                "deliver_period": 180,
-                "expire_start": 1633262028,
-                "buyer": {
-                    "addr": "0x01be1e724a00fF2C34BDE31d56835C5d438A34DA",
-                    "margin": "10000000000",
-                    "share": "10000000000",
-                    "delivered": true
-                },
-                "seller": {
-                    "addr": "0xf2Ac84D916E28aEB434b67f38cd0e481172dD029",
-                    "margin": "10000000000",
-                    "share": "10000000000",
-                    "delivered": true
-                },
-                "order_state": 6,
-                "order_state_desc": "Settled",
-                "asset_addr": "0xBc4595B1487E4bA99cd4A61258b2a3bE1469D4B7",
-                "asset_info": {
-                    "token_ids": ["5", "10005"],
-                    "token_ids_url": [
-                        "https://www.larvalabs.com/public/images/cryptopunks/punk0005.png",
-                        ""
-                    ]
-                },
-                "order_created": true
-            },
-            {
-                "id": 5,
-                "pool_addr": "0xC99c1D6d78C7bb75B41517d6b82F35248b06f684",
-                "order_type": 721,
-                "order_id": 4,
-                "created_time": 1633259957,
-                "order_valid_period": 1633260137,
-                "valid_till": 1633260137,
-                "deliver_price": "100000000000",
-                "deliver_token": "0xC99c1D6d78C7bb75B41517d6b82F35248b06f684",
-                "deliver_start": 1633260287,
-                "deliver_period": 180,
-                "expire_start": 1633260467,
-                "buyer": {
-                    "addr": "0x01be1e724a00fF2C34BDE31d56835C5d438A34DA",
-                    "margin": "10000000000",
-                    "share": "10000000000",
-                    "delivered": true
-                },
-                "seller": {
-                    "addr": "0xf2Ac84D916E28aEB434b67f38cd0e481172dD029",
-                    "margin": "10000000000",
-                    "share": "10000000000",
-                    "delivered": true
-                },
-                "order_state": 6,
-                "order_state_desc": "Settled",
-                "asset_addr": "0xBc4595B1487E4bA99cd4A61258b2a3bE1469D4B7",
-                "asset_info": {
-                    "token_ids": ["4", "10004"],
-                    "token_ids_uri": [
-                        "https://www.larvalabs.com/public/images/cryptopunks/punk0004.png",
-                        ""
-                    ]
-                },
-                "order_created": true
-            },
-            {
-                "id": 4,
-                "pool_addr": "0xC99c1D6d78C7bb75B41517d6b82F35248b06f684",
-                "order_type": 721,
-                "order_id": 3,
-                "created_time": 1633259327,
-                "order_valid_period": 1633259507,
-                "valid_till": 1633259507,
-                "deliver_price": "100000000000",
-                "deliver_token": "0xC99c1D6d78C7bb75B41517d6b82F35248b06f684",
-                "deliver_start": 1633259657,
-                "deliver_period": 180,
-                "expire_start": 1633259837,
-                "buyer": {
-                    "addr": "0x01be1e724a00fF2C34BDE31d56835C5d438A34DA",
-                    "margin": "10000000000",
-                    "share": "10000000000",
-                    "delivered": false
-                },
-                "seller": {
-                    "addr": "0xf2Ac84D916E28aEB434b67f38cd0e481172dD029",
-                    "margin": "10000000000",
-                    "share": "10000000000",
-                    "delivered": false
-                },
-                "order_state": 5,
-                "order_state_desc": "Expired",
-                "asset_addr": "0xBc4595B1487E4bA99cd4A61258b2a3bE1469D4B7",
-                "asset_info": {
-                    "token_ids": ["4", "10004"],
-                    "token_ids_url": [
-                        "https://www.larvalabs.com/public/images/cryptopunks/punk0004.png",
-                        ""
-                    ]
-                },
-                "order_created": true
-            }
-        ]
-    }
-}
+
 ```
 
 | key                               | meaning                                                                                                                                                                                                              |
